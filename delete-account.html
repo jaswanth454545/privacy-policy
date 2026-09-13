@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Account — MC Vegetables</title>
+    <meta name="description" content="Request deletion of your MC Vegetables (KaikariXpress) account and associated personal data.">
+    <style>
+        :root {
+            --primary: #34C759;
+            --primary-dark: #145C2E;
+            --bg: #F8FAFC;
+            --surface: #FFFFFF;
+            --text: #0F172A;
+            --text-secondary: #475569;
+            --border: #E2E8F0;
+            --danger: #EF4444;
+            --danger-dark: #B91C1C;
+            --danger-light: #FEF2F2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--danger-dark), var(--danger));
+            color: #fff;
+            padding: 48px 24px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 32px 24px 64px;
+        }
+
+        .info-banner {
+            background: var(--danger-light);
+            border: 1px solid #FECACA;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 32px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .info-banner .icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .info-banner p {
+            font-size: 14px;
+            color: var(--danger-dark);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+            margin: 28px 0 12px;
+        }
+
+        h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+            margin: 20px 0 8px;
+        }
+
+        p, li {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        ul, ol {
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        .step-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            margin: 0 0 4px;
+            font-size: 15px;
+        }
+
+        .step-content p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .data-deleted-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0 24px;
+            font-size: 14px;
+        }
+
+        .data-deleted-table th,
+        .data-deleted-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+
+        .data-deleted-table th {
+            background: var(--danger);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .data-deleted-table tr:nth-child(even) {
+            background: #FEF2F2;
+        }
+
+        .badge-deleted {
+            display: inline-block;
+            background: #FEE2E2;
+            color: var(--danger-dark);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-retained {
+            display: inline-block;
+            background: #FEF3C7;
+            color: #92400E;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .highlight-box {
+            background: #E8F5EC;
+            border-left: 4px solid var(--primary);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 16px 0;
+        }
+
+        .highlight-box p {
+            color: var(--primary-dark);
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* ── Delete Request Form ── */
+        .form-card {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            margin: 28px 0;
+        }
+
+        .form-card h2 {
+            margin-top: 0;
+            color: var(--danger-dark);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .form-group label .required {
+            color: var(--danger);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            color: var(--text);
+            background: #F9FAFB;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--danger);
+            background: #fff;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-group .hint {
+            font-size: 12px;
+            color: #9CA3AF;
+            margin-top: 4px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin: 16px 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            accent-color: var(--danger);
+            flex-shrink: 0;
+        }
+
+        .checkbox-group label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px 24px;
+            background: var(--danger);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .submit-btn:hover {
+            background: var(--danger-dark);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        .submit-btn:disabled {
+            background: #D1D5DB;
+            cursor: not-allowed;
+        }
+
+        .success-msg {
+            display: none;
+            background: #E8F5EC;
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .success-msg.visible {
+            display: block;
+        }
+
+        .success-msg h3 {
+            color: var(--primary-dark);
+            margin: 0 0 8px;
+        }
+
+        .success-msg p {
+            color: var(--primary-dark);
+            margin: 0;
+        }
+
+        .alternative-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+
+        .alternative-section h3 {
+            margin-top: 0;
+        }
+
+        .contact-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .contact-card p {
+            margin-bottom: 8px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 24px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            margin-top: 48px;
+        }
+
+        a {
+            color: var(--primary-dark);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .header { padding: 32px 16px; }
+            .header h1 { font-size: 20px; }
+            .container { padding: 20px 16px 48px; }
+            .form-card { padding: 20px; }
+            .step-card { padding: 16px; }
+            .data-deleted-table { font-size: 13px; }
+            .data-deleted-table th, .data-deleted-table td { padding: 8px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>🗑️ Delete Your Account</h1>
+    <p>MC Vegetables (KaikariXpress) — Account Deletion Request</p>
+</div>
+
+<div class="container">
+
+    <a href="index.html" class="back-link">← Back to Privacy Policy</a>
+
+    <div class="info-banner">
+        <span class="icon">⚠️</span>
+        <div>
+            <p><strong>This action is permanent.</strong> Once your account is deleted, all your personal data, 
+            order history, wallet balance, and saved addresses will be permanently removed from our systems. 
+            This action cannot be undone.</p>
+        </div>
+    </div>
+
+    <!-- How to Delete -->
+    <h2>How to Delete Your Account</h2>
+    <p>You can request account deletion using any of the following methods:</p>
+
+    <h3>Method 1: From Within the App</h3>
+    <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-content">
+            <h3>Open Settings</h3>
+            <p>Go to <strong>Profile</strong> → <strong>Settings</strong> in the MC Vegetables app.</p>
+        </div>
+    </div>
+    <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-content">
+            <h3>Navigate to Privacy & Security</h3>
+            <p>Scroll down to the <strong>"Privacy & Security"</strong> section.</p>
+        </div>
+    </div>
+    <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-content">
+            <h3>Tap "Delete Account"</h3>
+            <p>Tap on <strong>"Delete Account"</strong> (shown in red). Confirm when prompted. Your account and all associated data will be scheduled for deletion.</p>
+        </div>
+    </div>
+
+    <h3>Method 2: Submit a Request Below</h3>
+    <p>If you cannot access the app or prefer to request deletion through this page, use the form below.</p>
+
+    <h3>Method 3: Email Us Directly</h3>
+    <p>Send an email to <a href="mailto:support@kaikarixpress.com?subject=Account%20Deletion%20Request">support@kaikarixpress.com</a> 
+    with the subject line <strong>"Account Deletion Request"</strong> and include your registered phone number.</p>
+
+    <!-- What Gets Deleted -->
+    <h2>What Data Will Be Deleted</h2>
+    <p>When you request account deletion, the following data will be permanently removed:</p>
+
+    <table class="data-deleted-table">
+        <thead>
+            <tr>
+                <th>Data Type</th>
+                <th>Action</th>
+                <th>Timeline</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Account profile (name, email, phone)</td>
+                <td><span class="badge-deleted">Deleted</span></td>
+                <td>Within 7 days</td>
+            </tr>
+            <tr>
+                <td>Saved delivery addresses</td>
+                <td><span class="badge-deleted">Deleted</span></td>
+                <td>Within 7 days</td>
+            </tr>
+            <tr>
+                <td>Wallet balance & transaction history</td>
+                <td><span class="badge-deleted">Deleted</span></td>
+                <td>Within 7 days</td>
+            </tr>
+            <tr>
+                <td>Cart & wishlist data</td>
+                <td><span class="badge-deleted">Deleted</span></td>
+                <td>Immediately</td>
+            </tr>
+            <tr>
+                <td>Price negotiation history</td>
+                <td><span class="badge-deleted">Deleted</span></td>
+                <td>Within 7 days</td>
+            </tr>
+            <tr>
+                <td>App preferences & notification settings</td>
+                <td><span class="badge-deleted">Deleted</span></td>
+                <td>Immediately</td>
+            </tr>
+            <tr>
+                <td>Firebase authentication data</td>
+                <td><span class="badge-deleted">Deleted</span></td>
+                <td>Within 7 days</td>
+            </tr>
+            <tr>
+                <td>Order history & transaction records</td>
+                <td><span class="badge-retained">Retained*</span></td>
+                <td>Retained for 3 years</td>
+            </tr>
+            <tr>
+                <td>Payment records (Cashfree)</td>
+                <td><span class="badge-retained">Retained*</span></td>
+                <td>Per financial regulations</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="highlight-box">
+        <p>* Order and payment records are retained in anonymized form as required by Indian financial 
+        regulations (GST compliance, income tax records). Personal identifiers are removed from these records.</p>
+    </div>
+
+    <!-- Deletion Request Form -->
+    <div class="form-card" id="deletion-form-card">
+        <h2>📋 Account Deletion Request Form</h2>
+        <p style="margin-bottom: 20px;">Fill out this form to request deletion of your MC Vegetables account. We will process your request within <strong>7 business days</strong>.</p>
+
+        <form id="deleteForm" onsubmit="handleSubmit(event)">
+            <div class="form-group">
+                <label>Registered Phone Number <span class="required">*</span></label>
+                <input type="tel" id="phone" placeholder="Enter your 10-digit phone number" 
+                       pattern="[0-9]{10}" maxlength="10" required>
+                <div class="hint">The phone number you used to sign up on MC Vegetables</div>
+            </div>
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="name" placeholder="Enter your name as registered in the app">
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email (optional, for confirmation)">
+            </div>
+
+            <div class="form-group">
+                <label>Reason for Deletion</label>
+                <select id="reason">
+                    <option value="">Select a reason (optional)</option>
+                    <option value="no_longer_using">I no longer use the app</option>
+                    <option value="privacy_concerns">Privacy concerns</option>
+                    <option value="found_alternative">Found a better alternative</option>
+                    <option value="too_many_notifications">Too many notifications</option>
+                    <option value="service_not_available">Service not available in my area</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Additional Comments</label>
+                <textarea id="comments" placeholder="Any additional information or feedback (optional)"></textarea>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="confirm" required>
+                <label for="confirm">I understand that account deletion is <strong>permanent and irreversible</strong>. 
+                All my personal data, wallet balance, saved addresses, and account information will be permanently deleted.</label>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="confirm-dues" required>
+                <label for="confirm-dues">I confirm that I have <strong>no outstanding dues or pending orders</strong>. 
+                I understand that any remaining wallet balance will be forfeited upon account deletion.</label>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                🗑️ Submit Deletion Request
+            </button>
+        </form>
+
+        <div class="success-msg" id="successMsg">
+            <h3>✅ Request Submitted Successfully</h3>
+            <p>Your account deletion request has been received. We will process it within <strong>7 business days</strong>. 
+            You will receive a confirmation email (if provided) once your account has been deleted.</p>
+            <p style="margin-top: 12px; font-size: 13px;">Reference ID: <strong id="refId"></strong></p>
+        </div>
+    </div>
+
+    <!-- Important Notes -->
+    <h2>Important Things to Know</h2>
+    <ul>
+        <li><strong>Outstanding Dues:</strong> Please clear any pending dues or payments before requesting deletion. Accounts with outstanding financial obligations may not be immediately eligible for deletion.</li>
+        <li><strong>Active Orders:</strong> If you have active/pending orders, please wait for them to be delivered or cancelled before requesting account deletion.</li>
+        <li><strong>Wallet Balance:</strong> Any remaining wallet balance will be forfeited upon account deletion. Please use your balance or contact support for a refund before deleting.</li>
+        <li><strong>Re-registration:</strong> After deletion, you may create a new account using the same phone number. However, none of your previous data (orders, wallet, addresses) will be recoverable.</li>
+        <li><strong>Processing Time:</strong> Account deletion requests are processed within 7 business days. You will not be able to use the app during this period.</li>
+    </ul>
+
+    <!-- Alternative Actions -->
+    <div class="alternative-section">
+        <h3>🤔 Before You Delete — Consider These Alternatives</h3>
+        <ul>
+            <li><strong>Sign Out:</strong> Simply sign out from the app if you want to stop using it temporarily. Your data stays safe and you can sign back in anytime.</li>
+            <li><strong>Disable Notifications:</strong> Go to Settings → Notifications to turn off push notifications instead of deleting your account.</li>
+            <li><strong>Clear Cache:</strong> Go to Settings → Clear Cache to free up space without losing your account.</li>
+            <li><strong>Contact Support:</strong> If you're facing issues, our support team might be able to help resolve them.</li>
+        </ul>
+    </div>
+
+    <!-- Contact -->
+    <h2>Contact Us</h2>
+    <p>If you have questions about the deletion process or need assistance:</p>
+
+    <div class="contact-card">
+        <p><strong>MC Vegetables (KaikariXpress)</strong></p>
+        <p>📧 Email: <a href="mailto:support@kaikarixpress.com">support@kaikarixpress.com</a></p>
+        <p>🌐 Website: <a href="https://kaikarixpress.com" target="_blank" rel="noopener">kaikarixpress.com</a></p>
+        <p>📱 App: MC Vegetables on Google Play Store</p>
+    </div>
+
+    <div class="footer">
+        <p>© 2026 MC Vegetables (KaikariXpress). All rights reserved.</p>
+        <p>App Package: com.kaikarixpress2 | Version 1.0.2</p>
+        <p style="margin-top: 8px;"><a href="index.html">Privacy Policy</a></p>
+    </div>
+
+</div>
+
+<script>
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        const phone = document.getElementById('phone').value.trim();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const reason = document.getElementById('reason').value;
+        const comments = document.getElementById('comments').value.trim();
+        const confirm = document.getElementById('confirm').checked;
+        const confirmDues = document.getElementById('confirm-dues').checked;
+
+        if (!phone || phone.length !== 10) {
+            alert('Please enter a valid 10-digit phone number.');
+            return;
+        }
+
+        if (!confirm || !confirmDues) {
+            alert('Please confirm both checkboxes to proceed.');
+            return;
+        }
+
+        // Generate reference ID
+        const refId = 'DEL-' + Date.now().toString(36).toUpperCase() + '-' + phone.slice(-4);
+
+        // Build mailto link with all details
+        const subject = encodeURIComponent(`Account Deletion Request — ${refId}`);
+        const body = encodeURIComponent(
+            `ACCOUNT DELETION REQUEST\n` +
+            `========================\n\n` +
+            `Reference ID: ${refId}\n` +
+            `Date: ${new Date().toLocaleString()}\n\n` +
+            `ACCOUNT DETAILS:\n` +
+            `Phone Number: +91${phone}\n` +
+            `Name: ${name || 'Not provided'}\n` +
+            `Email: ${email || 'Not provided'}\n\n` +
+            `Reason: ${reason || 'Not specified'}\n` +
+            `Comments: ${comments || 'None'}\n\n` +
+            `CONFIRMATIONS:\n` +
+            `✓ User understands deletion is permanent and irreversible\n` +
+            `✓ User confirms no outstanding dues or pending orders\n\n` +
+            `---\n` +
+            `Sent from MC Vegetables Account Deletion Page`
+        );
+
+        // Open email client
+        window.location.href = `mailto:support@kaikarixpress.com?subject=${subject}&body=${body}`;
+
+        // Show success message
+        document.getElementById('refId').textContent = refId;
+        document.getElementById('successMsg').classList.add('visible');
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = '✅ Request Submitted';
+
+        // Scroll to success message
+        document.getElementById('successMsg').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+</script>
+
+</body>
+</html>
